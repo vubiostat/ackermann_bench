@@ -11,6 +11,6 @@ end
 
 class AckermannController < ApplicationController
   def index
-    render json: ack(params[:m],params[:n])
+    render json: {message: ack(params[:m].to_i,params[:n].to_i)}
   end
 end
