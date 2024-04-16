@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
+import sys
 from fastapi import FastAPI
+
+# Can use this to adjust stack size
+sys.setrecursionlimit(10000)
 
 
 @staticmethod
