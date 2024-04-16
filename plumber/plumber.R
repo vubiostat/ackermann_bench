@@ -1,12 +1,12 @@
-ack <- function(m, n) {
+ack <- function(m, n)
+{
     if(m == 0) {
-        ans <- n + 1
+        n + 1
     } else if(n == 0) {
-        ans <- ack(m-1, 1)
+        ack(m-1, 1)
     } else {
-        ans <- ack(m-1, ack(m, n-1))
+        ack(m-1, ack(m, n-1))
     }
-    ans
 }
 
 library(plumber)
@@ -17,15 +17,11 @@ library(plumber)
 #* Return the ackermann
 #* @param m The first number to add
 #* @param n The second number to add
-#* @post /ackermann
-function(m, n) {
-    ack(as.numeric(m),as.numeric(n))
-}
+#* @serializer unboxedJSON
+#* @get /
+function(req, m=0, n=0) ack(as.numeric(m),as.numeric(n))
+
 
 # Programmatically alter your API
 #* @plumber
-function(pr) {
-    pr %>%
-        # Overwrite the default serializer to return unboxed JSON
-        pr_set_serializer(serializer_unboxed_json())
-}
+function(pr) pr_set_serializer(pr, serializer_unboxed_json())
