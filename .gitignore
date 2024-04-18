@@ -33,3 +33,8 @@ rails!/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
 rails/config/master.key
+
+
+## Node
+
+node/node_modules
