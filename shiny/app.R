@@ -1,12 +1,13 @@
+options(expressions=10000)
+
 ack <- function(m, n) {
   if(m == 0) {
-    ans <- n + 1
+    n + 1
   } else if(n == 0) {
-    ans <- ack(m-1, 1)
+    ack(m-1, 1)
   } else {
-    ans <- ack(m-1, ack(m, n-1))
+    ack(m-1, ack(m, n-1))
   }
-  ans
 }
 
 library(shiny)
