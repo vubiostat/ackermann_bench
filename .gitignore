@@ -38,3 +38,5 @@ rails/config/master.key
 ## Node
 
 node/node_modules
+.Rproj.user
+*.Rproj

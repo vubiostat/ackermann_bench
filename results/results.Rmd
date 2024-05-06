@@ -1,0 +1,91 @@
+---
+title: "Framework Benchmark Results"
+output: html_document
+date: "2024-05-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+## Setup
+
+5 Minute ramp up to 49 concurrent users each requests Ack(3,6) repeatedly.
+
+1 User requests Ack(3,14). I.e., a monkey wrench in the gears.
+
+5 Minutes 49 Ack(3,6) requests continue.
+
+## Results
+
+```{r data}
+x <- data.frame(
+  Platform     = rep(c("Node", "Python", "Rails", "Shiny"),2),
+  Measure      = rep(c("Success", "Failure"), each=4),
+  Transactions = c(28762,  25252,   9999,   1384,
+                       1,      1,     42,  27956)
+)
+
+ggplot(x) +
+  geom_col(aes(x=Platform, y=Transactions, 
+           fill=Measure),
+           position=position_dodge(preserve='single'))
+```
+
+## Test Hardware/Software
+
+```
+OS Name	Microsoft Windows 10 Pro for Workstations
+Version	10.0.19045 Build 19045
+Other OS Description 	Not Available
+OS Manufacturer	Microsoft Corporation
+System Name	VICCBIOSTAT096
+System Manufacturer	Dell Inc.
+System Model	Precision 7920 Tower
+System Type	x64-based PC
+System SKU	073A
+Processor	Intel(R) Xeon(R) Gold 6258R CPU @ 2.70GHz, 2694 Mhz, 28 Core(s), 56 Logical Processor(s)
+Processor	Intel(R) Xeon(R) Gold 6258R CPU @ 2.70GHz, 2694 Mhz, 28 Core(s), 56 Logical Processor(s)
+BIOS Version/Date	Dell Inc. 2.18.0, 12/15/2021
+SMBIOS Version	3.2
+Embedded Controller Version	255.255
+BIOS Mode	UEFI
+BaseBoard Manufacturer	Dell Inc.
+BaseBoard Product	060K5C
+BaseBoard Version	A05
+Platform Role	Workstation
+Secure Boot State	On
+PCR7 Configuration	Elevation Required to View
+Windows Directory	C:\Windows
+System Directory	C:\Windows\system32
+Boot Device	\Device\HarddiskVolume1
+Locale	United States
+Hardware Abstraction Layer	Version = "10.0.19041.3636"
+User Name	Not Available
+Time Zone	Central Daylight Time
+Installed Physical Memory (RAM)	128 GB
+Total Physical Memory	128 GB
+Available Physical Memory	75.4 GB
+Total Virtual Memory	147 GB
+Available Virtual Memory	92.9 GB
+Page File Space	19.0 GB
+Page File	C:\pagefile.sys
+Kernel DMA Protection	Off
+Virtualization-based security	Running
+Virtualization-based security Required Security Properties	
+Virtualization-based security Available Security Properties	Base Virtualization Support, Secure Boot, UEFI Code Readonly, Mode Based Execution Control, APIC Virtualization
+Virtualization-based security Services Configured	
+Virtualization-based security Services Running	
+Device Encryption Support	Elevation Required to View
+A hypervisor has been detected. Features required for Hyper-V will not be displayed.	
+```
+
+Servers were hosted on virtual Ubuntu 24.
+
+* Rails 7.1.3.2
+* Python 3.10.12
+* Shiny 4.1.2
+* Node 20.11.0
+* LoadRunner 2023 Build 628 Community Edition (free)
+* R version 4.1.2 (2021-11-01) -- "Bird Hippie"
